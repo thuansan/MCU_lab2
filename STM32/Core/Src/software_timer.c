@@ -1,42 +1,77 @@
 /*
  * software_timer.c
  *
- *  Created on: Sep 24, 2022
- *      Author: KAI
+ *  Created on: Oct 9, 2023
+ *      Author: Administrator
  */
 
 #include "software_timer.h"
 
-const int timer_arr_size = 18;
-int timer_counter[18] = {
-		0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0};
-int timer_flag[18] = {
-		0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0};
+int timer1_flag = 0;
+int timer2_flag = 0;
+int timer3_flag = 0;
+int timer4_flag = 0;
+int timer1_counter = 0;
+int timer2_counter = 0;
+int timer3_counter = 0;
+int timer4_counter = 0;
 
-
-void Set_timer(int duration, int arr_pos)
+void setTimer1(int duration)
 {
-	timer_counter[arr_pos] = duration;
-	timer_flag[arr_pos] = 0;
+	timer1_counter = duration;
+	timer1_flag = 0;
 }
 
-void Run_timer()
+void setTimer2(int duration)
 {
-	int i = 0;
-	while(i < timer_arr_size)
+	timer2_counter = duration;
+	timer2_flag = 0;
+}
+
+void setTimer3(int duration)
+{
+	timer3_counter = duration;
+	timer3_flag = 0;
+}
+
+void setTimer4(int duration)
+{
+	timer4_counter = duration;
+	timer4_flag = 0;
+}
+
+void timerRun()
+{
+	if(timer1_counter > 0)
 	{
-		if(timer_counter[i] > 0)
+		timer1_counter--;
+		if(timer1_counter <= 0)
 		{
-			timer_counter[i]--;
-			if(timer_counter[i] <= 0)
-			{
-				timer_flag[i] = 1;
-			}
+			timer1_flag = 1;
 		}
-		i++;
+	}
+	if(timer2_counter > 0)
+	{
+		timer2_counter--;
+		if(timer2_counter <= 0)
+		{
+			timer2_flag = 1;
+		}
+	}
+	if(timer3_counter > 0)
+	{
+		timer3_counter--;
+		if(timer3_counter <= 0)
+		{
+			timer3_flag = 1;
+		}
+	}
+	if(timer4_counter > 0)
+	{
+		timer4_counter--;
+		if(timer4_counter <= 0)
+		{
+			timer4_flag = 1;
+		}
 	}
 }

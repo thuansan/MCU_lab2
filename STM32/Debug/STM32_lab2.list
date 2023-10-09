@@ -211,7 +211,7 @@ while (1)
 		  }
 	  }
 
-	  updateClockBuffer(hour, minute, led_buffer);
+	  updateClockBuffer(hour, minute, &led_buffer);
  80001f2:	463b      	mov	r3, r7
  80001f4:	461a      	mov	r2, r3
  80001f6:	6a39      	ldr	r1, [r7, #32]
@@ -1271,7 +1271,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	  }
 }
 
-void updateClockBuffer(int hour,  int minute, int* led_buffer)
+void updateClockBuffer(int hour,  int minute, int led_buffer[])
 {
  800092c:	b480      	push	{r7}
  800092e:	b085      	sub	sp, #20
@@ -1451,8 +1451,8 @@ void updateLEDMatrix (int index_matrix)
  8000a42:	f44f 6180 	mov.w	r1, #1024	; 0x400
  8000a46:	48b7      	ldr	r0, [pc, #732]	; (8000d24 <updateLEDMatrix+0x330>)
  8000a48:	f000 fede 	bl	8001808 <HAL_GPIO_WritePin>
-			  HAL_GPIO_WritePin(ENM3_GPIO_Port, ENM3_Pin, SET);
- 8000a4c:	2201      	movs	r2, #1
+			  HAL_GPIO_WritePin(ENM3_GPIO_Port, ENM3_Pin, RESET);
+ 8000a4c:	2200      	movs	r2, #0
  8000a4e:	f44f 6100 	mov.w	r1, #2048	; 0x800
  8000a52:	48b4      	ldr	r0, [pc, #720]	; (8000d24 <updateLEDMatrix+0x330>)
  8000a54:	f000 fed8 	bl	8001808 <HAL_GPIO_WritePin>
@@ -1520,43 +1520,43 @@ void updateLEDMatrix (int index_matrix)
 			break;
  8000ae8:	e29d      	b.n	8001026 <updateLEDMatrix+0x632>
 		case 1:
-			  HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, SET);
- 8000aea:	2201      	movs	r2, #1
+			  HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, RESET);
+ 8000aea:	2200      	movs	r2, #0
  8000aec:	2104      	movs	r1, #4
  8000aee:	488d      	ldr	r0, [pc, #564]	; (8000d24 <updateLEDMatrix+0x330>)
  8000af0:	f000 fe8a 	bl	8001808 <HAL_GPIO_WritePin>
-			  HAL_GPIO_WritePin(ENM1_GPIO_Port, ENM1_Pin, RESET);
- 8000af4:	2200      	movs	r2, #0
+			  HAL_GPIO_WritePin(ENM1_GPIO_Port, ENM1_Pin, SET);
+ 8000af4:	2201      	movs	r2, #1
  8000af6:	2108      	movs	r1, #8
  8000af8:	488a      	ldr	r0, [pc, #552]	; (8000d24 <updateLEDMatrix+0x330>)
  8000afa:	f000 fe85 	bl	8001808 <HAL_GPIO_WritePin>
-			  HAL_GPIO_WritePin(ENM2_GPIO_Port, ENM2_Pin, SET);
- 8000afe:	2201      	movs	r2, #1
+			  HAL_GPIO_WritePin(ENM2_GPIO_Port, ENM2_Pin, RESET);
+ 8000afe:	2200      	movs	r2, #0
  8000b00:	f44f 6180 	mov.w	r1, #1024	; 0x400
  8000b04:	4887      	ldr	r0, [pc, #540]	; (8000d24 <updateLEDMatrix+0x330>)
  8000b06:	f000 fe7f 	bl	8001808 <HAL_GPIO_WritePin>
-			  HAL_GPIO_WritePin(ENM3_GPIO_Port, ENM3_Pin, SET);
- 8000b0a:	2201      	movs	r2, #1
+			  HAL_GPIO_WritePin(ENM3_GPIO_Port, ENM3_Pin, RESET);
+ 8000b0a:	2200      	movs	r2, #0
  8000b0c:	f44f 6100 	mov.w	r1, #2048	; 0x800
  8000b10:	4884      	ldr	r0, [pc, #528]	; (8000d24 <updateLEDMatrix+0x330>)
  8000b12:	f000 fe79 	bl	8001808 <HAL_GPIO_WritePin>
-			  HAL_GPIO_WritePin(ENM4_GPIO_Port, ENM4_Pin, SET);
- 8000b16:	2201      	movs	r2, #1
+			  HAL_GPIO_WritePin(ENM4_GPIO_Port, ENM4_Pin, RESET);
+ 8000b16:	2200      	movs	r2, #0
  8000b18:	f44f 5180 	mov.w	r1, #4096	; 0x1000
  8000b1c:	4881      	ldr	r0, [pc, #516]	; (8000d24 <updateLEDMatrix+0x330>)
  8000b1e:	f000 fe73 	bl	8001808 <HAL_GPIO_WritePin>
-			  HAL_GPIO_WritePin(ENM5_GPIO_Port, ENM5_Pin, SET);
- 8000b22:	2201      	movs	r2, #1
+			  HAL_GPIO_WritePin(ENM5_GPIO_Port, ENM5_Pin, RESET);
+ 8000b22:	2200      	movs	r2, #0
  8000b24:	f44f 5100 	mov.w	r1, #8192	; 0x2000
  8000b28:	487e      	ldr	r0, [pc, #504]	; (8000d24 <updateLEDMatrix+0x330>)
  8000b2a:	f000 fe6d 	bl	8001808 <HAL_GPIO_WritePin>
-			  HAL_GPIO_WritePin(ENM6_GPIO_Port, ENM6_Pin, SET);
- 8000b2e:	2201      	movs	r2, #1
+			  HAL_GPIO_WritePin(ENM6_GPIO_Port, ENM6_Pin, RESET);
+ 8000b2e:	2200      	movs	r2, #0
  8000b30:	f44f 4180 	mov.w	r1, #16384	; 0x4000
  8000b34:	487b      	ldr	r0, [pc, #492]	; (8000d24 <updateLEDMatrix+0x330>)
  8000b36:	f000 fe67 	bl	8001808 <HAL_GPIO_WritePin>
-			  HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, SET);
- 8000b3a:	2201      	movs	r2, #1
+			  HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, RESET);
+ 8000b3a:	2200      	movs	r2, #0
  8000b3c:	f44f 4100 	mov.w	r1, #32768	; 0x8000
  8000b40:	4878      	ldr	r0, [pc, #480]	; (8000d24 <updateLEDMatrix+0x330>)
  8000b42:	f000 fe61 	bl	8001808 <HAL_GPIO_WritePin>
