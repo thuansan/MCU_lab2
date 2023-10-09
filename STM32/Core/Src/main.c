@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "software_timer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,6 +52,7 @@ static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 
+
 void display7SEG(int num,
 		GPIO_TypeDef* a_seg_GPIO_Port, uint16_t a_seg_Pin,
 		GPIO_TypeDef* b_seg_GPIO_Port, uint16_t b_seg_Pin,
@@ -65,6 +66,7 @@ void display7SEG(int num,
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
 
 /* USER CODE END 0 */
 
@@ -103,8 +105,69 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  Set_timer(100, 0);
+  Set_timer(50, 1);
+  int enable_trigger = 0;
+  int trigger_num = 0;
   while (1)
   {
+	  if(timer_flag[0] == 1)
+	  {
+		  Set_timer(100,0);
+		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+	  }
+
+	  if(timer_flag[1] == 1)
+	  {
+		  Set_timer(50,1);
+		  switch (enable_trigger)
+		  {
+			case 0:
+				HAL_GPIO_WritePin(EN_0_GPIO_Port, EN_0_Pin, RESET);
+				HAL_GPIO_WritePin(EN_1_GPIO_Port, EN_1_Pin, SET);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
+				enable_trigger = 1;
+				trigger_num = 1;
+				break;
+			case 1:
+				HAL_GPIO_WritePin(EN_0_GPIO_Port, EN_0_Pin, SET);
+				HAL_GPIO_WritePin(EN_1_GPIO_Port, EN_1_Pin, RESET);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
+				enable_trigger = 2;
+				trigger_num = 2;
+				break;
+			case 2:
+				HAL_GPIO_WritePin(EN_0_GPIO_Port, EN_0_Pin, SET);
+				HAL_GPIO_WritePin(EN_1_GPIO_Port, EN_1_Pin, SET);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, RESET);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
+				enable_trigger = 3;
+				trigger_num = 3;
+				break;
+			case 3:
+				HAL_GPIO_WritePin(EN_0_GPIO_Port, EN_0_Pin, SET);
+				HAL_GPIO_WritePin(EN_1_GPIO_Port, EN_1_Pin, SET);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, RESET);
+				enable_trigger = 0;
+				trigger_num = 0;
+				break;
+			default:
+				break;
+		  }
+
+		  display7SEG(trigger_num,
+				  seg_a_GPIO_Port, seg_a_Pin,
+				  seg_b_GPIO_Port, seg_b_Pin,
+				  seg_c_GPIO_Port, seg_c_Pin,
+				  seg_d_GPIO_Port, seg_d_Pin,
+				  seg_e_GPIO_Port, seg_e_Pin,
+				  seg_f_GPIO_Port, seg_f_Pin,
+				  seg_g_GPIO_Port, seg_g_Pin);
+
+		}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -206,14 +269,17 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|EN0_Pin|EN1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, DOT_Pin|LED_RED_Pin|EN0_Pin|EN1_Pin
+                          |EN2_Pin|EN3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, a_Pin|b_Pin|c_Pin|d_Pin
                           |e_Pin|f_Pin|g_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin EN0_Pin EN1_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|EN0_Pin|EN1_Pin;
+  /*Configure GPIO pins : DOT_Pin LED_RED_Pin EN0_Pin EN1_Pin
+                           EN2_Pin EN3_Pin */
+  GPIO_InitStruct.Pin = DOT_Pin|LED_RED_Pin|EN0_Pin|EN1_Pin
+                          |EN2_Pin|EN3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -231,46 +297,10 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
-int enable_trigger = 0;
-int counter = 50;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	counter--;
-	int trigger_num = 0;
-	if(counter <= 0)
-	{
-		counter = 50;
-		HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-
-		switch (enable_trigger) {
-			case 0:
-				HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, RESET);
-				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
-				enable_trigger = 1;
-				trigger_num = 1;
-				break;
-			case 1:
-				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, RESET);
-				HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
-				enable_trigger = 0;
-				trigger_num = 2;
-				break;
-			default:
-				break;
-		}
-
-		display7SEG(trigger_num,
-				a_GPIO_Port, a_Pin,
-				b_GPIO_Port, b_Pin,
-				c_GPIO_Port, c_Pin,
-				d_GPIO_Port, d_Pin,
-				e_GPIO_Port, e_Pin,
-				f_GPIO_Port, f_Pin,
-				g_GPIO_Port, g_Pin);
-	}
+	Run_timer();
 }
-
 void display7SEG(int num,
 		GPIO_TypeDef* a_seg_GPIO_Port, uint16_t a_seg_Pin,
 		GPIO_TypeDef* b_seg_GPIO_Port, uint16_t b_seg_Pin,
@@ -375,7 +405,6 @@ void display7SEG(int num,
 			break;
 	}
 }
-
 /* USER CODE END 4 */
 
 /**
