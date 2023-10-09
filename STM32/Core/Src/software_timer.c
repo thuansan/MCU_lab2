@@ -7,36 +7,18 @@
 
 #include "software_timer.h"
 
-const int timer_arr_size = 18;
-int timer_counter[18] = {
-		0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0};
-int timer_flag[18] = {
-		0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0};
+int timer_counter[10] = {0};
+int timer_flag[10] = {0};
 
-
-void Set_timer(int duration, int arr_pos)
-{
-	timer_counter[arr_pos] = duration;
-	timer_flag[arr_pos] = 0;
+void setTimer(int duration, int timerId){
+	timer_counter[timerId] = duration;
+	timer_flag[timerId] = 0;
 }
-
-void Run_timer()
-{
-	int i = 0;
-	while(i < timer_arr_size)
-	{
-		if(timer_counter[i] > 0)
-		{
-			timer_counter[i]--;
-			if(timer_counter[i] <= 0)
-			{
-				timer_flag[i] = 1;
-			}
+void timerRun(int timerId){
+	if(timer_counter[timerId] > 0){
+		timer_counter[timerId]--;
+		if(timer_counter[timerId] <= 0){
+			timer_flag[timerId] = 1;
 		}
-		i++;
 	}
 }
