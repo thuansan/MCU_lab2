@@ -1,16 +1,16 @@
 /*
  * software_timer.h
  *
- *  Created on: Sep 24, 2022
- *      Author: KAI
+ *  Created on: Sep 27, 2023
+ *      Author: Admin
  */
 
 #ifndef INC_SOFTWARE_TIMER_H_
 #define INC_SOFTWARE_TIMER_H_
 
-extern int timer_flag[];
+extern int timer_flag[10];
 
-void Set_timer(int duration, int arr_pos);
-void Run_timer();
+void setTimer(int duration, int timerId);
+void timerRun(int timerId);
 
 #endif /* INC_SOFTWARE_TIMER_H_ */
