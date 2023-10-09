@@ -254,7 +254,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+    setTimer0 (1) ;
   while (1)
   {
 
