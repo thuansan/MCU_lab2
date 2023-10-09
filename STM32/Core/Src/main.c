@@ -108,7 +108,7 @@ int main(void)
   Set_timer(100, 0);
   Set_timer(50, 1);
   Set_timer(10, 2);
-  int hour = 24 , minute = 59 , second = 50;
+  int hour = 15 , minute = 8 , second = 50;
   const int MAX_LED = 4;
   int led_buffer [4] = {1 , 2 , 3 , 4};
   int index_led = 0;
@@ -141,7 +141,7 @@ while (1)
 
 	  if(timer_flag[1] == 1)
 	  {
-		  Set_timer(50, 1);
+		  Set_timer(25, 1);
 		  if(index_led >= MAX_LED)
 		  {
 			  index_led = 0;
@@ -540,9 +540,9 @@ void Error_Handler(void)
 }
 
 
-void updateLEDMatrix (int index)
+void updateLEDMatrix (int index_matrix)
 {
-	switch (index) {
+	switch (index_matrix) {
 		case 0:
 			  HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, SET);
 			  HAL_GPIO_WritePin(ENM1_GPIO_Port, ENM1_Pin, SET);

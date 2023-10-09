@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_line   000095ea  00000000  00000000  00041412  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000822db  00000000  00000000  0004a9fc  2**0
+ 18 .debug_str    000822d5  00000000  00000000  0004a9fc  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000cccd7  2**0
+ 19 .comment      00000053  00000000  00000000  000cccd1  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000026c8  00000000  00000000  000ccd2c  2**2
+ 20 .debug_frame  000026c8  00000000  00000000  000ccd24  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -129,10 +129,10 @@ int main(void)
  8000178:	2102      	movs	r1, #2
  800017a:	200a      	movs	r0, #10
  800017c:	f000 ff5c 	bl	8001038 <Set_timer>
-  int hour = 24 , minute = 59 , second = 50;
- 8000180:	2318      	movs	r3, #24
+  int hour = 15 , minute = 8 , second = 50;
+ 8000180:	230f      	movs	r3, #15
  8000182:	627b      	str	r3, [r7, #36]	; 0x24
- 8000184:	233b      	movs	r3, #59	; 0x3b
+ 8000184:	2308      	movs	r3, #8
  8000186:	623b      	str	r3, [r7, #32]
  8000188:	2332      	movs	r3, #50	; 0x32
  800018a:	61fb      	str	r3, [r7, #28]
@@ -224,9 +224,9 @@ while (1)
  8000202:	2b01      	cmp	r3, #1
  8000204:	f040 809a 	bne.w	800033c <main+0x1f0>
 	  {
-		  Set_timer(50, 1);
+		  Set_timer(25, 1);
  8000208:	2101      	movs	r1, #1
- 800020a:	2032      	movs	r0, #50	; 0x32
+ 800020a:	2019      	movs	r0, #25
  800020c:	f000 ff14 	bl	8001038 <Set_timer>
 		  if(index_led >= MAX_LED)
  8000210:	69ba      	ldr	r2, [r7, #24]
@@ -1414,7 +1414,7 @@ __STATIC_FORCEINLINE void __disable_irq(void)
 }
 
 
-void updateLEDMatrix (int index)
+void updateLEDMatrix (int index_matrix)
 {
  80009f4:	b580      	push	{r7, lr}
  80009f6:	b082      	sub	sp, #8
@@ -1434,7 +1434,7 @@ void updateLEDMatrix (int index)
  8000a20:	08000deb 	.word	0x08000deb
  8000a24:	08000ea9 	.word	0x08000ea9
  8000a28:	08000f67 	.word	0x08000f67
-	switch (index) {
+	switch (index_matrix) {
 		case 0:
 			  HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, SET);
  8000a2c:	2201      	movs	r2, #1
