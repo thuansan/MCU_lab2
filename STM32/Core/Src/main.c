@@ -125,7 +125,7 @@ int main(void)
 	  }
 	  if(timer_flag[1] == 1)
 	  {
-		  Set_timer(100, 1);
+		  Set_timer(25, 1);
 		  display7SEG(led_buffer[index_led],
 				  a_GPIO_Port, a_Pin,
 				  b_GPIO_Port, b_Pin,

@@ -174,9 +174,9 @@ int main(void)
  80001ba:	2b01      	cmp	r3, #1
  80001bc:	d1e5      	bne.n	800018a <main+0x3e>
 	  {
-		  Set_timer(100, 1);
+		  Set_timer(25, 1);
  80001be:	2101      	movs	r1, #1
- 80001c0:	2064      	movs	r0, #100	; 0x64
+ 80001c0:	2019      	movs	r0, #25
  80001c2:	f000 fb77 	bl	80008b4 <Set_timer>
 		  display7SEG(led_buffer[index_led],
  80001c6:	697b      	ldr	r3, [r7, #20]
