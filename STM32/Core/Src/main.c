@@ -123,32 +123,32 @@ int main(void)
 		  switch (enable_trigger)
 		  {
 			case 0:
-				HAL_GPIO_WritePin(EN_0_GPIO_Port, EN_0_Pin, RESET);
-				HAL_GPIO_WritePin(EN_1_GPIO_Port, EN_1_Pin, SET);
+				HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, RESET);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
 				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
 				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
 				enable_trigger = 1;
 				trigger_num = 1;
 				break;
 			case 1:
-				HAL_GPIO_WritePin(EN_0_GPIO_Port, EN_0_Pin, SET);
-				HAL_GPIO_WritePin(EN_1_GPIO_Port, EN_1_Pin, RESET);
+				HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, RESET);
 				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
 				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
 				enable_trigger = 2;
 				trigger_num = 2;
 				break;
 			case 2:
-				HAL_GPIO_WritePin(EN_0_GPIO_Port, EN_0_Pin, SET);
-				HAL_GPIO_WritePin(EN_1_GPIO_Port, EN_1_Pin, SET);
+				HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
 				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, RESET);
 				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
 				enable_trigger = 3;
 				trigger_num = 3;
 				break;
 			case 3:
-				HAL_GPIO_WritePin(EN_0_GPIO_Port, EN_0_Pin, SET);
-				HAL_GPIO_WritePin(EN_1_GPIO_Port, EN_1_Pin, SET);
+				HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
 				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
 				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, RESET);
 				enable_trigger = 0;
@@ -158,14 +158,14 @@ int main(void)
 				break;
 		  }
 
-		  display7SEG(trigger_num,
-				  seg_a_GPIO_Port, seg_a_Pin,
-				  seg_b_GPIO_Port, seg_b_Pin,
-				  seg_c_GPIO_Port, seg_c_Pin,
-				  seg_d_GPIO_Port, seg_d_Pin,
-				  seg_e_GPIO_Port, seg_e_Pin,
-				  seg_f_GPIO_Port, seg_f_Pin,
-				  seg_g_GPIO_Port, seg_g_Pin);
+			display7SEG(trigger_num,
+					a_GPIO_Port, a_Pin,
+					b_GPIO_Port, b_Pin,
+					c_GPIO_Port, c_Pin,
+					d_GPIO_Port, d_Pin,
+					e_GPIO_Port, e_Pin,
+					f_GPIO_Port, f_Pin,
+					g_GPIO_Port, g_Pin);
 
 		}
     /* USER CODE END WHILE */
